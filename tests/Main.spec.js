@@ -2,7 +2,7 @@ const { test, expect, chromium } = require("@playwright/test");
 const { PageObjectManager } = require("../pageObjects.js/PomManager");
 
 test.describe("Main Test Execution", () => {
-  let pomManager, launchPage, browser, context, page;
+  let pomManager, launchPage, careerpage, browser, context, page;
 
   test.beforeAll(async ({}) => {
     browser = await chromium.launch();
@@ -11,6 +11,7 @@ test.describe("Main Test Execution", () => {
 
     pomManager = new PageObjectManager(page);
     launchPage = pomManager.getHomepage();
+    careerpage = pomManager.getCareerpage();
     await launchPage.launchUrl();
   });
 
@@ -34,19 +35,26 @@ test.describe("Main Test Execution", () => {
   });
 
   test("CAREERS PAGE, Check for Explore Jobs button and then navigate to Open Postions section", async () => {
-    await launchPage.checkAndNavigate_To_OpenPosition_Section();
+    await careerpage.checkAndNavigate_To_OpenPosition_Section();
   });
 
   test("CAREERS PAGE, Check for Job Location dropdown and then select bengaluru option", async () => {
-    await launchPage.checkAndSelect_Bengaluru_Option();
+    await careerpage.checkAndSelect_Bengaluru_Option();
   });
 
   test("CAREERS PAGE, Check for first job in list and get details", async () => {
-    await launchPage.checkAndGet_FirstJob_Details();
+    await careerpage.checkAndGet_FirstJob_Details();
+  });
+
+  test("CAREERS DETAIL PAGE, After getting detail navigate to Career Detail page ", async () => {
+    await careerpage.navigateTo_CareerDetailPage();
   });
 
   test("CAREER DETAIL PAGE, Validate data", async () => {
-    await launchPage.validateData();
+    const isValidated = await careerpage.validateData();
+    await expect
+      .soft(isValidated, "Data on career detail is as expected..")
+      .toBeTruthy();
   });
 
   test.afterAll(async () => {
