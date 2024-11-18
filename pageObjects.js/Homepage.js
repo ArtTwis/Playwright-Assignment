@@ -10,7 +10,7 @@ export class Homepage {
     this.quarks_Logo = page
       .getByRole("img", { name: "Quarks Technosoft" })
       .first();
-    this.cookies = page.locator("div[class='cookies']");
+    this.cookies = page.locator("div.cookies");
     this.cookie_Accept_Btn = page.locator(".setCookie");
     this.navItems = page.locator("//li[@class='nav-item dropMenuOpen']");
     this.career_NavLink = page.locator(
