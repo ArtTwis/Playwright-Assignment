@@ -41,6 +41,14 @@ test.describe("Main Test Execution", () => {
     await launchPage.checkAndSelect_Bengaluru_Option();
   });
 
+  test("CAREERS PAGE, Check for first job in list and get details", async () => {
+    await launchPage.checkAndGet_FirstJob_Details();
+  });
+
+  test("CAREER DETAIL PAGE, Validate data", async () => {
+    await launchPage.validateData();
+  });
+
   test.afterAll(async () => {
     await browser.close();
   });
